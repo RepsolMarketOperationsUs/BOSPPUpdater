@@ -1,8 +1,5 @@
 import datetime as dt
 from ercotapi import ERCOTAPI
-from ercotapi import USERNAME
-from ercotapi import PASSWORD
-from ercotapi import API_KEY
 from streamlit import cache_data, cache_resource, subheader, table, download_button, header, date_input
 from pandas import DataFrame
 
@@ -13,11 +10,8 @@ def convert_df_to_csv(df):
 
 def get_spp_df(date:dt.date = dt.date.today()):
     try:
-        api = ERCOTAPI(USERNAME, PASSWORD, API_KEY)
-        current_spp_df = DataFrame(api.get_json_dict(api.get_dam_spp(deliveryDateFrom=str(date), deliveryDateTo=str(date), settlementPoint="HB_WEST"))["data"], 
-                                    columns=["Date", "Hour Ending", "Settlement Point", "SPP", "Repeat Flag"])
-        current_spp_df["Hour Ending"] = [int(x[:-3]) for x in current_spp_df["Hour Ending"]]
-        current_spp_df.drop("Repeat Flag", inplace=True, axis=1)
+        api = ERCOTAPI("madison.krone@repsol.com", "Repsol123", "1df275c218464aacb4c55e05dfc12886")
+        current_spp_df = api.get_dam_spp(str(date), str(date), "HB_WEST")
     except KeyError:
         get_spp_df(date)
         return None
