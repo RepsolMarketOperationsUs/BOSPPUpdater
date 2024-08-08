@@ -1,5 +1,5 @@
 import datetime as dt
-from ercotapi import ERCOTAPI
+from ercot_api import ERCOTAPI
 from streamlit import cache_data, cache_resource, subheader, table, download_button, header, date_input
 from pandas import DataFrame
 
