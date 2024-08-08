@@ -12,6 +12,7 @@ def get_spp_df(date:dt.date = dt.date.today()):
     try:
         api = ERCOTAPI("madison.krone@repsol.com", "Repsol123", "1df275c218464aacb4c55e05dfc12886")
         current_spp_df = api.get_dam_spp(str(date), str(date), "HB_WEST")
+        print(current_spp_df)
     except KeyError:
         get_spp_df(date)
         return None
